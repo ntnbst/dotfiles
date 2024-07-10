@@ -1,0 +1,25 @@
+# import = ["~/.config/alacritty/themes/themes/one_dark.toml.toml"]
+# import = ["~/.config/alacritty/themes/themes/catppuccin.toml"]
+import = ["~/.config/alacritty/themes/themes/tokyo-night.toml"]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+opacity = 0.9
+blur = true
+
+padding.x = 5
+padding.y = 5
+
+decorations = "Buttonless"
+
+option_as_alt = "Both"
+
+[font]
+normal.family = "FiraCode Nerd Font"
+bold.family = "Jetbrainsmono nerd font"
+italic.family = "Jetbrainsmono nerd font"
+bold_italic.family = "Jetbrainsmono nerd font"
+
+size = 15.0

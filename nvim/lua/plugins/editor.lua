@@ -210,4 +210,13 @@ return {
       require("telescope").load_extension("file_browser")
     end,
   },
+  { "xiyaowong/transparent.nvim" },
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   opts = {
+  --     window = {
+  --       position = "right",
+  --     },
+  --   },
+  -- },
 }
