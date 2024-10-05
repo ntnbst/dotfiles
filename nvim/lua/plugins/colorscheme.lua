@@ -72,7 +72,7 @@ return {
     lazy = true,
     priority = 1000,
     opts = function()
-      return { variant = "moon" } -- Example option for rose-pine
+      return { variant = "moon", transparent = true } -- Example option for rose-pine
     end,
   },
 
@@ -98,6 +98,7 @@ return {
   },
 
   { "marko-cerovac/material.nvim", lazy = true },
+  { "ellisonleao/gruvbox.nvim", lazy = true },
   -- LazyVim configuration to set the colorscheme
   {
     "LazyVim/LazyVim",

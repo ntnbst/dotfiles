@@ -2,6 +2,7 @@ return {
   -- messages, cmdline and the popupmenu
   {
     "folke/noice.nvim",
+    enabled = true,
     opts = function(_, opts)
       table.insert(opts.routes, {
         filter = {
@@ -52,11 +53,24 @@ return {
       opts.presets.lsp_doc_border = true
     end,
   },
-
+  {
+    "j-hui/fidget.nvim",
+    opts = {
+      notification = {
+        window = {
+          winblend = 0,
+          border = "rounded",
+        },
+      },
+    },
+  },
   {
     "rcarriga/nvim-notify",
     opts = {
       timeout = 5000,
+      on_open = function(win)
+        vim.api.nvim_win_set_config(win, { zindex = 100 })
+      end,
     },
   },
 
@@ -72,54 +86,66 @@ return {
   -- },
 
   -- buffer line
-  -- {
-  --   "akinsho/bufferline.nvim",
-  --   event = "VeryLazy",
-  --   keys = {
-  --     { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
-  --     { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
-  --   },
-  --   opts = {
-  --     options = {
-  --       mode = "tabs",
-  --       -- separator_style = "slant",
-  --       show_buffer_close_icons = false,
-  --       show_close_icon = false,
-  --     },
-  --   },
-  -- },
+  {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    keys = {
+      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
+    },
+    opts = {
+      options = {
+        mode = "tabs",
+        -- separator_style = "slant",
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+      },
+    },
+  },
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    opts = {
+      -- configurations go here
+    },
+  },
 
   -- filename
-  -- {
-  --   "b0o/incline.nvim",
-  --   dependencies = { "craftzdog/solarized-osaka.nvim" },
-  --   event = "BufReadPre",
-  --   priority = 1200,
-  --   config = function()
-  --     local colors = require("solarized-osaka.colors").setup()
-  --     require("incline").setup({
-  --       highlight = {
-  --         groups = {
-  --           InclineNormal = { guibg = colors.magenta500, guifg = colors.base04 },
-  --           InclineNormalNC = { guifg = colors.violet500, guibg = colors.base03 },
-  --         },
-  --       },
-  --       window = { margin = { vertical = 0, horizontal = 1 } },
-  --       hide = {
-  --         cursorline = true,
-  --       },
-  --       render = function(props)
-  --         local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-  --         if vim.bo[props.buf].modified then
-  --           filename = "[+] " .. filename
-  --         end
-  --
-  --         local icon, color = require("nvim-web-devicons").get_icon_color(filename)
-  --         return { { icon, guifg = color }, { " " }, { filename } }
-  --       end,
-  --     })
-  --   end,
-  -- },
+  {
+    "b0o/incline.nvim",
+    dependencies = { "craftzdog/solarized-osaka.nvim" },
+    event = "BufReadPre",
+    priority = 1200,
+    config = function()
+      local colors = require("solarized-osaka.colors").setup()
+      require("incline").setup({
+        highlight = {
+          groups = {
+            InclineNormal = { guibg = colors.magenta500, guifg = colors.base04 },
+            InclineNormalNC = { guifg = colors.violet500, guibg = colors.base03 },
+          },
+        },
+        window = { margin = { vertical = 0, horizontal = 1 } },
+        hide = {
+          cursorline = true,
+        },
+        render = function(props)
+          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+          if vim.bo[props.buf].modified then
+            filename = "[+] " .. filename
+          end
+
+          local icon, color = require("nvim-web-devicons").get_icon_color(filename)
+          return { { icon, guifg = color }, { " " }, { filename } }
+        end,
+      })
+    end,
+  },
 
   {
     "folke/zen-mode.nvim",
@@ -139,12 +165,14 @@ return {
     event = "VimEnter",
     opts = function(_, opts)
       local logo = [[
-        ██████╗ ███████╗██╗   ██╗ █████╗ ███████╗██╗     ██╗███████╗███████╗
-        ██╔══██╗██╔════╝██║   ██║██╔══██╗██╔════╝██║     ██║██╔════╝██╔════╝
-        ██║  ██║█████╗  ██║   ██║███████║███████╗██║     ██║█████╗  █████╗  
-        ██║  ██║██╔══╝  ╚██╗ ██╔╝██╔══██║╚════██║██║     ██║██╔══╝  ██╔══╝  
-        ██████╔╝███████╗ ╚████╔╝ ██║  ██║███████║███████╗██║██║     ███████╗
-        ╚═════╝ ╚══════╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝╚═╝     ╚══════╝
+
+        ██╗  ██╗███╗   ██╗ ██╗ ██████╗ ██╗  ██╗████████╗     ██████╗ ██████╗ ██████╗ ███████╗███████╗
+        ██║ ██╔╝████╗  ██║███║██╔════╝ ██║  ██║╚══██╔══╝    ██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝
+        █████╔╝ ██╔██╗ ██║╚██║██║  ███╗███████║   ██║       ██║     ██║   ██║██║  ██║█████╗  ███████╗
+        ██╔═██╗ ██║╚██╗██║ ██║██║   ██║██╔══██║   ██║       ██║     ██║   ██║██║  ██║██╔══╝  ╚════██║
+        ██║  ██╗██║ ╚████║ ██║╚██████╔╝██║  ██║   ██║       ╚██████╗╚██████╔╝██████╔╝███████╗███████║
+        ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝        ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝
+                                                                                                    
       ]]
 
       logo = string.rep("\n", 8) .. logo .. "\n\n"
