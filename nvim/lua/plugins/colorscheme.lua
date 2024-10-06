@@ -1,5 +1,3 @@
--- ~/.config/nvim/init.lua or wherever your lazy.nvim configuration is
-
 return {
   -- Theme plugins with their options
   {
@@ -25,13 +23,6 @@ return {
     priority = 1000,
     opts = function()
       return { transparent = true }
-    end,
-  },
-  {
-    "diegoulloao/neofusion.nvim",
-    name = "neofusion",
-    opts = function()
-      return { transparent_mode = true }
     end,
   },
   {
@@ -62,9 +53,22 @@ return {
     "scottmckendry/cyberdream.nvim",
     lazy = false,
     priority = 1000,
-    opts = function()
-      return { transparent = true }
+    opts = function(_, opts)
+      opts.transparent = true
+      opts.italics_comments = true
+      opts.borderless_telescope = false
     end,
+  },
+  {
+    "mawkler/modicator.nvim",
+    dependencies = "scottmckendry/cyberdream.nvim",
+    init = function()
+      -- These are required for Modicator to work
+      vim.o.cursorline = false
+      vim.o.number = true
+      vim.o.termguicolors = true
+    end,
+    opts = {},
   },
   {
     "rose-pine/neovim",
@@ -72,7 +76,7 @@ return {
     lazy = true,
     priority = 1000,
     opts = function()
-      return { variant = "moon", transparent = true } -- Example option for rose-pine
+      return { variant = "main", transparent_mode = true } -- Example option for rose-pine
     end,
   },
 
@@ -84,28 +88,14 @@ return {
       return { transparent = true }
     end,
   },
-  {
-    "sainnhe/sonokai",
-    lazy = true,
-    priority = 1000,
-    config = function()
-      return { sonokai_style = "andromeda" }
-      -- Optionally configure and load the colorscheme
-      -- directly inside the plugin declaration.
-      -- vim.g.sonokai_enable_italic = true
-      -- vim.cmd.colorscheme("sonokai")
-    end,
-  },
-
   { "marko-cerovac/material.nvim", lazy = true },
-  { "ellisonleao/gruvbox.nvim", lazy = true },
   -- LazyVim configuration to set the colorscheme
   {
     "LazyVim/LazyVim",
     opts = {
       -- Change this to the colorscheme you want to use
       -- colorscheme = "onedark",
-      colorscheme = "catppuccin",
+      colorscheme = "cyberdream",
     },
   },
 }

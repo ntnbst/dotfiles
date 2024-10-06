@@ -17,9 +17,12 @@ decorations = "Buttonless"
 option_as_alt = "Both"
 
 [font]
-normal.family = "FiraCode Nerd Font"
-bold.family = "Jetbrainsmono nerd font"
-italic.family = "Jetbrainsmono nerd font"
-bold_italic.family = "Jetbrainsmono nerd font"
+normal.family = "Agave nerd font"
+bold.family = "Agave nerd font"
+# bold.family = "Jetbrainsmono nerd font"
+italic.family = "Agave nerd font"
+# italic.family = "Jetbrainsmono nerd font"
+bold_italic.family = "Agave nerd font"
+# bold_italic.family = "jetbrainsmono nerd font"
 
-size = 15.0
+size = 16.0
