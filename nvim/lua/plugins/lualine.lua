@@ -1,6 +1,7 @@
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
+    "nvim-tree/nvim-web-devicons",
     "meuter/lualine-so-fancy.nvim",
   },
   enabled = true,
@@ -10,9 +11,9 @@ return {
     -- local icons = require("config.icons")
     require("lualine").setup({
       options = {
-        -- theme = "auto",
+        theme = "auto",
         -- theme = "github_dark",
-        theme = "catppuccin",
+        -- theme = "catppuccin",
         globalstatus = true,
         icons_enabled = true,
         -- component_separators = { left = "│", right = "│" },
@@ -31,18 +32,16 @@ return {
         },
       },
       sections = {
-        lualine_a = { { "fancy_mode", width = 3 } },
-        lualine_b = {
-          "fancy_branch",
-        },
+        lualine_a = { { "fancy_mode", width = 6 } },
+        lualine_b = { "fancy_branch" },
         lualine_c = {
           {
             "filename",
             path = 1, -- 2 for full path
             symbols = {
               modified = "  ",
-              -- readonly = "  ",
-              -- unnamed = "  ",
+              readonly = "  ",
+              unnamed = "  ",
             },
           },
           {
@@ -53,7 +52,7 @@ return {
           { "fancy_searchcount" },
         },
         lualine_x = {
-          "fancy_lsp_servers",
+          -- "fancy_lsp_servers",
           "fancy_diff",
           "progress",
         },
